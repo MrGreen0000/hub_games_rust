@@ -5,4 +5,12 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[workspace]
+members = [".", "game1", "game2", "game3", "ui"]
+
 [dependencies]
+game1 = {path = "game1"}
+game2 = {path = "game2"}
+game3 = {path = "game3"}
+rusqlite = { version = "0.31.0", features = ["bundled"] }
+ui = {path = "ui"}
