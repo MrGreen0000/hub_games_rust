@@ -3,9 +3,12 @@ use rusqlite::{Connection, Result};
 
 mod models;
 use models::user::get_user;
-use models::score::{add_score, show_alls_scores};
+use models::game:: {GAMES, play_game };
+use models::score::show_alls_scores;
 mod database;
 use database::sqlite::initiate_db;
+
+
 
 
 
@@ -18,7 +21,7 @@ fn main() -> Result<()> {
    let mut username = String::new();
    io::stdin().read_line(&mut username).expect("Erreur lors de la lecture de l'entrée");
    let user = get_user(&conn, username.trim());
-   add_score(&conn, user.id, 1, 64);
+ 
    
 
    loop {
@@ -43,6 +46,10 @@ fn main() -> Result<()> {
         };
 
         match choice {
+            1 => match play_game(&conn, &user, GAMES[0]){
+                Ok(score) => println!("Joli score de {}", score ),
+                Err(e) => println!("{}", e)
+            }
             4 => show_alls_scores(&conn, &user)?,
             5 => {
                 println!(" Au revoir !");
